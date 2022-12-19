@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SearchProperty.Data;
 
@@ -11,9 +12,10 @@ using SearchProperty.Data;
 namespace SearchProperty.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221218091353_AddProprtyModel")]
+    partial class AddProprtyModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,26 +275,6 @@ namespace SearchProperty.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.BusinessDetails", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("BusinessType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyId")
-                        .IsUnique();
-
-                    b.ToTable("BusinessDetails");
-                });
-
             modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.Property", b =>
                 {
                     b.Property<string>("Id")
@@ -300,9 +282,6 @@ namespace SearchProperty.Data.Migrations
 
                     b.Property<string>("AddressId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BusinessDetailsId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -318,9 +297,6 @@ namespace SearchProperty.Data.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<string>("ResidentalDetailsId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SquareMeters")
                         .HasColumnType("int");
 
@@ -333,38 +309,6 @@ namespace SearchProperty.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Properties");
-                });
-
-            modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.ResidentialDetails", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Bathrooms")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Bedrooms")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Floor")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PropertyId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ResidentialTypes")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("YardSquareMeters")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyId")
-                        .IsUnique();
-
-                    b.ToTable("ResidentialDetails");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -427,29 +371,11 @@ namespace SearchProperty.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.BusinessDetails", b =>
-                {
-                    b.HasOne("SearchProperty.Data.Models.OfferedProperties.Property", null)
-                        .WithOne("BusinessDetails")
-                        .HasForeignKey("SearchProperty.Data.Models.OfferedProperties.BusinessDetails", "PropertyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.Property", b =>
                 {
                     b.HasOne("SearchProperty.Data.Models.ApplicationUser", null)
                         .WithMany("Properties")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.ResidentialDetails", b =>
-                {
-                    b.HasOne("SearchProperty.Data.Models.OfferedProperties.Property", null)
-                        .WithOne("ResidentalDetails")
-                        .HasForeignKey("SearchProperty.Data.Models.OfferedProperties.ResidentialDetails", "PropertyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -468,10 +394,6 @@ namespace SearchProperty.Data.Migrations
             modelBuilder.Entity("SearchProperty.Data.Models.OfferedProperties.Property", b =>
                 {
                     b.Navigation("Address");
-
-                    b.Navigation("BusinessDetails");
-
-                    b.Navigation("ResidentalDetails");
                 });
 #pragma warning restore 612, 618
         }

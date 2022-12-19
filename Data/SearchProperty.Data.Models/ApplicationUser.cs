@@ -5,6 +5,7 @@ namespace SearchProperty.Data.Models
     using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Identity;
+    using SearchProperty.Data.Models.OfferedProperties;
 
     public class ApplicationUser : IdentityUser
     {
@@ -14,6 +15,7 @@ namespace SearchProperty.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Properties = new HashSet<Property>();
         }
 
         // Audit info
@@ -31,5 +33,7 @@ namespace SearchProperty.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<Property> Properties { get; set; }
     }
 }

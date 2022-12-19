@@ -8,6 +8,8 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using SearchProperty.Data.Models;
+    using SearchProperty.Data.Models.Addresses;
+    using SearchProperty.Data.Models.OfferedProperties;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -15,6 +17,14 @@
             : base(options)
         {
         }
+
+        public DbSet<Property> Properties { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<ResidentialDetails> ResidentialDetails { get; set; }
+
+        public DbSet<BusinessDetails> BusinessDetails { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
