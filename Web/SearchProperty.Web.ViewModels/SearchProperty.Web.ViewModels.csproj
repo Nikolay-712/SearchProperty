@@ -8,6 +8,12 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Administration\**" />
+    <EmbeddedResource Remove="Administration\**" />
+    <None Remove="Administration\**" />
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
@@ -20,11 +26,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SearchProperty.Data.Models\SearchProperty.Data.Models.csproj" />
+    <ProjectReference Include="..\..\SearchProperty.Common\SearchProperty.Common.csproj" />
     <ProjectReference Include="..\..\Services\SearchProperty.Services.Mapping\SearchProperty.Services.Mapping.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Administration\Dashboard\" />
   </ItemGroup>
 
 </Project>
