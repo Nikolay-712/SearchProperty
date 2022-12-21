@@ -1,5 +1,7 @@
 ﻿namespace SearchProperty.Services.OfferedProperties
 {
+    using System.Threading.Tasks;
+
     using SearchProperty.Data.Models.OfferedProperties;
     using SearchProperty.Web.ViewModels.OfferedProperties;
 
@@ -7,6 +9,8 @@
     {
         Property AddProperty(PropertyInputModel propertyInput, string userId);
 
-        ResidentialDetailsInputModel ShowPropertyTempData(Property property);
+        TempPropertyViewModel ShowPropertyTempData(Property property);
+
+        Task SavePropertyAsync(Property property, TempPropertyViewModel tempPropertyDetails);
     }
 }

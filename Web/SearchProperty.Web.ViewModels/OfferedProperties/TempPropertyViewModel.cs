@@ -1,9 +1,12 @@
 ﻿namespace SearchProperty.Web.ViewModels.OfferedProperties
 {
-    using SearchProperty.Data.Models.OfferedProperties;
+    using System.ComponentModel.DataAnnotations;
+
     using SearchProperty.Data.Models.OfferedProperties.Enums;
 
-    public class TempPropertyViewModel
+    using static SearchProperty.Common.GlobalConstants;
+
+    public class TempPropertyViewModel : ResidentialDetailsInputModel
     {
         public string PropertyId { get; init; }
 
@@ -20,5 +23,9 @@
         public string Town { get; init; }
 
         public string Location { get; init; }
+
+        [Required(ErrorMessage = RequiredFieldMessage)]
+        [EnumDataType(typeof(BusinessType), ErrorMessage = InvalidPropertyType)]
+        public BusinessType BusinessType { get; init; }
     }
 }

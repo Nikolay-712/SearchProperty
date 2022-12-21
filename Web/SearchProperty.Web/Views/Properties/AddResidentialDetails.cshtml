@@ -1,4 +1,4 @@
-﻿@model ResidentialDetailsInputModel
+﻿@model TempPropertyViewModel
 @using SearchProperty.Data.Models.OfferedProperties.Enums;
 
 @{
@@ -11,7 +11,7 @@
 
 
 <div class="col-md-6 ">
-    <form asp-action="AddResidentialDetails" enctype="multipart/form-data">
+    <form asp-action="SaveProperty" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <input type="submit" value="Add" class="btn btn-primary" />

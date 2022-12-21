@@ -3,15 +3,21 @@
     using System;
 
     using SearchProperty.Data.Models.Addresses;
+    using SearchProperty.Data.Models.OfferedProperties.Enums;
 
     public class Property
     {
         public Property()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.CreatedOn = DateTime.Now;
         }
 
         public string Id { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public PropertyType PropertyType { get; set; }
 
         public decimal Price { get; set; }
 

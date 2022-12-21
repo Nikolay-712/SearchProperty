@@ -12,6 +12,10 @@
             property
                 .HasKey(x => x.Id);
 
+            property
+                .Property(x => x.PropertyType)
+                .IsRequired();
+
             property.Property(x => x.Price)
                 .IsRequired()
                 .HasColumnType<decimal>("decimal")

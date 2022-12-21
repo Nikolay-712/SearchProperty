@@ -42,7 +42,29 @@
             var property = this.propertyService.AddProperty(propertyInput, user.Id);
 
             this.TempData["data"] = JsonConvert.SerializeObject(property);
-            return this.RedirectToAction("AddResidentialDetails");
+
+            if (propertyInput.PropertyType == PropertyType.Residential)
+            {
+                return this.RedirectToAction("AddResidentialDetails");
+            }
+
+            if (propertyInput.PropertyType == PropertyType.Business)
+            {
+                return this.RedirectToAction("AddBusinessDetails");
+            }
+
+            return this.BadRequest();
+        }
+
+        public IActionResult AddBusinessDetails()
+        {
+            var data = this.TempData["data"].ToString();
+            var property = JsonConvert.DeserializeObject<Property>(data);
+
+            var tempProperty = this.propertyService.ShowPropertyTempData(property);
+            this.TempData["data"] = JsonConvert.SerializeObject(property);
+
+            return this.View(tempProperty);
         }
 
         public IActionResult AddResidentialDetails()
@@ -51,15 +73,18 @@
             var property = JsonConvert.DeserializeObject<Property>(data);
 
             var tempProperty = this.propertyService.ShowPropertyTempData(property);
+            this.TempData["data"] = JsonConvert.SerializeObject(property);
 
             return this.View(tempProperty);
         }
 
         [HttpPost]
-        public IActionResult AddResidentialDetails(ResidentialDetailsInputModel residentialDetails)
+        public async Task<IActionResult> SaveProperty(TempPropertyViewModel tempProperty)
         {
             var data = this.TempData["data"].ToString();
             var property = JsonConvert.DeserializeObject<Property>(data);
+
+            await this.propertyService.SavePropertyAsync(property, tempProperty);
 
             return this.View();
         }

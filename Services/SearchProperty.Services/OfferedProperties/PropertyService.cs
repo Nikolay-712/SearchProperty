@@ -1,7 +1,10 @@
 ﻿namespace SearchProperty.Services.OfferedProperties
 {
+    using System.Threading.Tasks;
+
     using SearchProperty.Data;
     using SearchProperty.Data.Models.OfferedProperties;
+    using SearchProperty.Data.Models.OfferedProperties.Enums;
     using SearchProperty.Services.Addresses;
     using SearchProperty.Web.ViewModels.OfferedProperties;
 
@@ -34,10 +37,11 @@
             return property;
         }
 
-        public ResidentialDetailsInputModel ShowPropertyTempData(Property property)
+        public TempPropertyViewModel ShowPropertyTempData(Property property)
         {
-            var tempProperty = new ResidentialDetailsInputModel
+            var tempProperty = new TempPropertyViewModel
             {
+                PropertyType = property.PropertyType,
                 Price = property.Price,
                 Description = property.Description,
                 SquareMeters = property.SquareMeters,
@@ -47,6 +51,40 @@
             };
 
             return tempProperty;
+        }
+
+        public async Task SavePropertyAsync(Property property, TempPropertyViewModel tempPropertyDetails)
+        {
+            if (tempPropertyDetails.PropertyType == PropertyType.Residential)
+            {
+                var details = new ResidentialDetails
+                {
+                    PropertyId = property.Id,
+                    ResidentialTypes = tempPropertyDetails.ResidentialTypes,
+                    Bathrooms = tempPropertyDetails.Bathrooms,
+                    Bedrooms = tempPropertyDetails.Bedrooms,
+                    YardSquareMeters = tempPropertyDetails.YardSquareMeters,
+                    Floor = tempPropertyDetails.Floor,
+                };
+
+                property.ResidentalDetails = details;
+                property.ResidentalDetailsId = details.Id;
+            }
+
+            if (tempPropertyDetails.PropertyType == PropertyType.Business)
+            {
+                var details = new BusinessDetails
+                {
+                    PropertyId = property.Id,
+                    BusinessType = tempPropertyDetails.BusinessType,
+                };
+
+                property.BusinessDetails = details;
+                property.BusinessDetailsId = details.Id;
+            }
+
+            await this.applicationDbContext.Properties.AddAsync(property);
+            await this.applicationDbContext.SaveChangesAsync();
         }
     }
 }

@@ -6,7 +6,7 @@
 
     using static SearchProperty.Common.GlobalConstants;
 
-    public class ResidentialDetailsInputModel : TempPropertyViewModel
+    public class ResidentialDetailsInputModel
     {
         [Required(ErrorMessage = RequiredFieldMessage)]
         [EnumDataType(typeof(ResidentialType), ErrorMessage = InvalidPropertyType)]
