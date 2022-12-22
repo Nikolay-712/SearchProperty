@@ -6,7 +6,7 @@
 }
 
 <div class="col-md-6 ">
-    <form asp-action="AddDetails" enctype="multipart/form-data">
+    <form asp-action="ShowPropertyDetails" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <input type="submit" value="Add" class="btn btn-primary" />
@@ -20,6 +20,13 @@
                 }
             </select>
             <span asp-validation-for="PropertyType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div id="address"></div>
+            <div id="map"></div>
+            <input type="hidden" id="street-address" asp-for="Address" />
+            <input type="hidden" id="city" asp-for="Town" />
+            <input type="hidden" id="test" asp-for="Test" />
         </div>
         <div class="form-group">
             <input asp-for="Price" class="form-control" placeholder="Price" />
@@ -37,9 +44,73 @@
             <input asp-for="ForRent" class="form-control" placeholder="For Rent" />
             <span asp-validation-for="ForRent" class="text-danger"></span>
         </div>
-        
         <div class="form-group">
             <input type="hidden" asp-for="PropertyId" class="form-control" />
         </div>
     </form>
 </div>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<script>
+    function initMap() {
+        // Create a new map
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: { lat: -34.397, lng: 150.644 }
+        });
+
+        // Add a click event listener to the map to add a marker when the user clicks on the map
+        google.maps.event.addListener(map, 'click', function (event) {
+            addMarker(event.latLng, map);
+        });
+
+        // Add a marker to the map at the specified location
+        function addMarker(location, map) {
+            // Create a new marker
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            // Save the address text for the marker
+            var addressText = getAddressText(location);
+            marker.addressText = addressText;
+
+            // Add a click event listener to the marker to remove it when the user clicks on it
+            google.maps.event.addListener(marker, 'click', function () {
+                marker.setMap(null);
+            });
+
+            // Get the address text for a given location
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ location: marker.position }, function (results, status) {
+                if (status === "OK") {
+                    if (results[0]) {
+                        var address = results[0].formatted_address;
+                        document.getElementById('address').innerHTML = address
+                        console.log(address);
+                        $("#full-address").val(address
+                        $("#street-address").val(results[0].address_components[0].long_name + " " + results[0].address_components[1].long_name);
+                        $("#town").val(results[0].address_components[3].long_name);
+                        $("#neighborhood ").val(results[0].address_components[2].long_name);
+                    } 
+                } 
+            });
+        }
+
+
+        function getAddressText(location) {
+            // Replace this with code to get the address text for the location using the Google Maps Geocoding API
+
+        }
+    };
+</script>

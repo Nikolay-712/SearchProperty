@@ -1,5 +1,6 @@
 ﻿namespace SearchProperty.Web.ViewModels.OfferedProperties
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using SearchProperty.Data.Models.OfferedProperties.Enums;
@@ -9,6 +10,8 @@
     public class TempPropertyViewModel : ResidentialDetailsInputModel
     {
         public string PropertyId { get; init; }
+
+        public DateTime CreatedOn { get; set; }
 
         public PropertyType PropertyType { get; init; }
 

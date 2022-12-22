@@ -1,16 +1,16 @@
 ﻿namespace SearchProperty.Web.Controllers.OfferedProperties
 {
-    using System.Collections.Generic;
+    using System.Net.Http;
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using SearchProperty.Data.Models;
     using SearchProperty.Data.Models.OfferedProperties;
-    using SearchProperty.Data.Models.OfferedProperties.Enums;
     using SearchProperty.Services.OfferedProperties;
     using SearchProperty.Web.ViewModels.OfferedProperties;
 
@@ -31,7 +31,7 @@
             return this.View();
         }
 
-        public async Task<IActionResult> AddDetails(PropertyInputModel propertyInput)
+        public async Task<IActionResult> ShowPropertyDetails(PropertyInputModel propertyInput)
         {
             if (!this.ModelState.IsValid)
             {
@@ -42,49 +42,41 @@
             var property = this.propertyService.AddProperty(propertyInput, user.Id);
 
             this.TempData["data"] = JsonConvert.SerializeObject(property);
-
-            if (propertyInput.PropertyType == PropertyType.Residential)
-            {
-                return this.RedirectToAction("AddResidentialDetails");
-            }
-
-            if (propertyInput.PropertyType == PropertyType.Business)
-            {
-                return this.RedirectToAction("AddBusinessDetails");
-            }
-
-            return this.BadRequest();
+            return this.RedirectToAction("AddDetails");
         }
 
-        public IActionResult AddBusinessDetails()
+        public IActionResult AddDetails()
         {
-            var data = this.TempData["data"].ToString();
-            var property = JsonConvert.DeserializeObject<Property>(data);
+            try
+            {
+                var data = this.TempData["data"].ToString();
+                var property = JsonConvert.DeserializeObject<Property>(data);
 
-            var tempProperty = this.propertyService.ShowPropertyTempData(property);
-            this.TempData["data"] = JsonConvert.SerializeObject(property);
+                var tempProperty = this.propertyService.ShowPropertyTempData(property);
+                this.TempData["data"] = JsonConvert.SerializeObject(property);
 
-            return this.View(tempProperty);
-        }
-
-        public IActionResult AddResidentialDetails()
-        {
-            var data = this.TempData["data"].ToString();
-            var property = JsonConvert.DeserializeObject<Property>(data);
-
-            var tempProperty = this.propertyService.ShowPropertyTempData(property);
-            this.TempData["data"] = JsonConvert.SerializeObject(property);
-
-            return this.View(tempProperty);
+                return this.View(tempProperty);
+            }
+            catch
+            {
+                return this.BadRequest();
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> SaveProperty(TempPropertyViewModel tempProperty)
         {
-            var data = this.TempData["data"].ToString();
-            var property = JsonConvert.DeserializeObject<Property>(data);
+            try
+            {
+                var data = this.TempData["data"].ToString();
+                var property = JsonConvert.DeserializeObject<Property>(data);
 
-            await this.propertyService.SavePropertyAsync(property, tempProperty);
+                await this.propertyService.SavePropertyAsync(property, tempProperty);
+            }
+            catch
+            {
+                return this.BadRequest();
+            }
 
             return this.View();
         }

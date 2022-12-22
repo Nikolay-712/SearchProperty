@@ -30,6 +30,12 @@
 
         public bool ForRent { get; init; }
 
-        public string PropertyId { get; set; }
+        public string PropertyId { get; init; }
+
+        public string Address { get; init; }
+
+        public string Town { get; set; }
+
+        public string Test { get; set; }
     }
 }

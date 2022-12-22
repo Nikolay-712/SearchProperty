@@ -23,6 +23,7 @@
         {
             var property = new Property
             {
+                PropertyType = propertyInput.PropertyType,
                 Price = propertyInput.Price,
                 Description = propertyInput.Description,
                 SquareMeters = propertyInput.SquareMeters,
@@ -42,6 +43,7 @@
             var tempProperty = new TempPropertyViewModel
             {
                 PropertyType = property.PropertyType,
+                CreatedOn = property.CreatedOn,
                 Price = property.Price,
                 Description = property.Description,
                 SquareMeters = property.SquareMeters,
@@ -55,7 +57,7 @@
 
         public async Task SavePropertyAsync(Property property, TempPropertyViewModel tempPropertyDetails)
         {
-            if (tempPropertyDetails.PropertyType == PropertyType.Residential)
+            if (property.PropertyType == PropertyType.Residential)
             {
                 var details = new ResidentialDetails
                 {
@@ -71,7 +73,7 @@
                 property.ResidentalDetailsId = details.Id;
             }
 
-            if (tempPropertyDetails.PropertyType == PropertyType.Business)
+            if (property.PropertyType == PropertyType.Business)
             {
                 var details = new BusinessDetails
                 {
