@@ -18,10 +18,34 @@
                 .IsUnicode();
 
             address
-                .Property(x => x.Location)
+                .Property(x => x.FullAddress)
                 .IsRequired()
-                .HasMaxLength(70)
+                .HasMaxLength(250)
                 .IsUnicode();
+
+            address
+                .Property(x => x.Street)
+                .IsRequired()
+                .HasMaxLength(150)
+                .IsUnicode();
+
+            address
+                .Property(x => x.Neighborhood)
+                .IsRequired()
+                .HasMaxLength(150)
+                .IsUnicode();
+
+            address
+                .Property(x => x.Lat)
+                .IsRequired()
+                .HasColumnType<double>("decimal")
+                .HasPrecision(10, 4);
+
+            address
+                .Property(x => x.Lng)
+                .IsRequired()
+                .HasColumnType<double>("decimal")
+                .HasPrecision(10, 4);
 
             address
                 .Property(x => x.PropertyId)

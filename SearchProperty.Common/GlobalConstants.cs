@@ -6,7 +6,7 @@
 
         public const string AdministratorRoleName = "Administrator";
 
-        public const string RequiredFieldMessage = "Field is required";
+        public const string RequiredFieldMessage = "{0} is required";
 
         public const string LenghtErrorMessage = "{0} must be between {1} - {2} characters.";
 

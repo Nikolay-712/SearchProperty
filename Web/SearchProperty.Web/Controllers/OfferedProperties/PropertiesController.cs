@@ -1,14 +1,11 @@
 ﻿namespace SearchProperty.Web.Controllers.OfferedProperties
 {
-    using System.Net.Http;
-    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using SearchProperty.Data.Models;
     using SearchProperty.Data.Models.OfferedProperties;
     using SearchProperty.Services.OfferedProperties;
@@ -35,7 +32,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(propertyInput);
+                return this.View("AddProperty", propertyInput);
             }
 
             var user = await this.userManager.GetUserAsync(this.User);

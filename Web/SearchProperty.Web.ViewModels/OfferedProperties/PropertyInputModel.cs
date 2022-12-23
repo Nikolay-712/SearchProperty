@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using SearchProperty.Data.Models.OfferedProperties.Enums;
+    using SearchProperty.Web.ViewModels.Addresses;
 
     using static SearchProperty.Common.GlobalConstants;
 
@@ -32,10 +33,7 @@
 
         public string PropertyId { get; init; }
 
-        public string Address { get; init; }
-
-        public string Town { get; set; }
-
-        public string Test { get; set; }
+        [Required(ErrorMessage = RequiredFieldMessage)]
+        public AddressInputModel Address { get; init; }
     }
 }

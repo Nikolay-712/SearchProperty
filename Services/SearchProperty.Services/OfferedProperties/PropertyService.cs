@@ -31,7 +31,7 @@
                 ForRent = propertyInput.ForRent,
             };
 
-            var address = this.addressService.GenerateAddress(property.Id);
+            var address = this.addressService.GenerateAddress(property.Id, propertyInput.Address);
             property.AddressId = address.Id;
             property.Address = address;
 
@@ -49,7 +49,7 @@
                 SquareMeters = property.SquareMeters,
                 ForRent = property.ForRent,
                 Town = property.Address.Town,
-                Location = property.Address.Location,
+                Location = property.Address.FullAddress,
             };
 
             return tempProperty;
