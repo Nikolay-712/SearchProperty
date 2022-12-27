@@ -17,6 +17,7 @@
     using SearchProperty.Services.Mapping;
     using SearchProperty.Services.Messaging;
     using SearchProperty.Services.OfferedProperties;
+    using SearchProperty.Services.Search;
     using SearchProperty.Web.ViewModels;
 
     public class Program
@@ -61,6 +62,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IPropertyService, PropertyService>();
             services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<ISearchService, SearchService>();
         }
 
         private static void Configure(WebApplication app)

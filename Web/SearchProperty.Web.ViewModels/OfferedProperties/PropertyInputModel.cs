@@ -33,6 +33,7 @@
 
         public string PropertyId { get; init; }
 
+        [Display(Name = "Address")]
         [Required(ErrorMessage = RequiredFieldMessage)]
         public AddressInputModel Address { get; init; }
     }

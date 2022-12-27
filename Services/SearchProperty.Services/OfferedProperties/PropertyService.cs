@@ -1,5 +1,6 @@
 ﻿namespace SearchProperty.Services.OfferedProperties
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using SearchProperty.Data;
@@ -88,5 +89,6 @@
             await this.applicationDbContext.Properties.AddAsync(property);
             await this.applicationDbContext.SaveChangesAsync();
         }
+
     }
 }

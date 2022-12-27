@@ -17,7 +17,9 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IPropertyService propertyService;
 
-        public PropertiesController(UserManager<ApplicationUser> userManager, IPropertyService propertyService)
+        public PropertiesController(
+            UserManager<ApplicationUser> userManager,
+            IPropertyService propertyService)
         {
             this.userManager = userManager;
             this.propertyService = propertyService;
