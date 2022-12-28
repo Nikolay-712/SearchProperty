@@ -1,8 +1,10 @@
 ﻿namespace SearchProperty.Web.Controllers.Search
 {
     using Microsoft.AspNetCore.Mvc;
+    using SearchProperty.Data.Models.OfferedProperties.Enums;
     using SearchProperty.Services.Search;
-    using SearchProperty.Web.ViewModels.OfferedProperties;
+    using SearchProperty.Web.ViewModels.Search;
+    using System.Collections.Generic;
 
     public class SearchController : Controller
     {
@@ -13,10 +15,24 @@
             this.searchService = searchService;
         }
 
-        public IActionResult AllProperties()
+        //public IActionResult Index()
+        //{
+        //    return this.View();
+        //}
+
+        public IActionResult Index()
         {
-            var properties = this.searchService.AllProperties<PropertyViewModel>();
-            return this.View();
+            SearchInputModel searchInput = new SearchInputModel
+            {
+                Town = "Sofia",
+                Type = PropertyType.Residential,
+                ForRent = false,
+                PropertyType = new List<string> { "House", "Apartment" },
+            };
+
+
+            var properties = this.searchService.PropertiesByFilters(searchInput);
+            return this.View(properties);
         }
     }
 }
