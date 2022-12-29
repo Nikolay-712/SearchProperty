@@ -1,0 +1,140 @@
+﻿@model SearchInputModel
+@using SearchProperty.Data.Models.OfferedProperties.Enums;
+
+@{
+    var propertyType = Enum.GetValues(typeof(PropertyType));
+    var residentialType = Enum.GetValues(typeof(ResidentialType));
+    var businessType = Enum.GetValues(typeof(BusinessType));
+}
+
+<form asp-action="Result" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input type="submit" value="Add" class="btn btn-primary" />
+    </div>
+    <div class="form-group">
+        <select asp-for="Town" class="form-control">
+            <option value="">Select Town</option>
+            <option value="Sofia">Sofia</option>
+            <option value="Plovdiv">Plovdiv</option>
+            <option value="Pernik">Pernik</option>
+        </select>
+        <span asp-validation-for="Town" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <select asp-for="ForRent" class="form-control">
+            <option value="">Select</option>
+            <option value="@true">For Sale</option>
+            <option value="@false">For Rent</option>
+        </select>
+        <span asp-validation-for="ForRent" class="text-danger"></span>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <select asp-for="Type" id="dropdown" class="form-control">
+                <option value="">Select Type</option>
+                @foreach (var type in propertyType)
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+            <span asp-validation-for="Type" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div id="submenu1">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <select asp-for="PropertyType" class="form-control selectpicker"
+                                                id="residentialType" multiple="multiple" data-live-search="true">
+                                            @foreach (var type in residentialType)
+                                            {
+                                                <option data-tokens="@type">@type</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div id="submenu2" style="display: none;">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <select asp-for="PropertyType" class="form-control selectpicker"
+                                                id="businessType" multiple="multiple" data-live-search="true">
+                                            @foreach (var type in businessType)
+                                            {
+                                                <option data-tokens="@type">@type</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <legend>Bedrooms Count</legend>
+        @for (int i = 1; i <= 4; i++)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="@i" name="BedroomsCount" />
+                <lable class="form-check-label">
+                    @i Bedrooms
+                </lable>
+            </div>
+        }
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="4+" name="BedroomsCount" />
+            <lable class="form-check-label">
+                4+ Bedrooms
+            </lable>
+        </div>
+
+    </div>
+
+
+</form>
+
+<script>
+    var dropdown = document.getElementById("dropdown");
+
+    dropdown.addEventListener("change", function () {
+        if (this.value == "") {
+            submenu1.style.display = "none";
+            submenu2.style.display = "none";
+
+        } else if (this.value == "Residential") {
+            submenu1.style.display = "block";
+            submenu2.style.display = "none";
+            $('#businessType').selectpicker('deselectAll');
+
+
+        } else if (this.value == "Business") {
+            submenu1.style.display = "none";
+            submenu2.style.display = "block";
+            $('#residentialType').selectpicker('deselectAll');
+        }
+    });
+</script>
+

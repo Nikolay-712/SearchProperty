@@ -26,24 +26,20 @@
         public IEnumerable<PropertyViewModel> PropertiesByFilters(SearchInputModel searchInput)
         {
             var all = this.AllProperties<PropertyViewModel>();
-            var tempPropertiesList = new List<PropertyViewModel>();
 
             var search = all
-                .Where(x => x.PropertyType == searchInput.Type)
                 .Where(x => x.Town == searchInput.Town)
-                .Where(x => x.ForRent == searchInput.ForRent);
-
+                .Where(x => x.ForRent == searchInput.ForRent)
+                .Where(x => x.PropertyType == searchInput.Type);
 
             if (searchInput.PropertyType != null)
             {
                 foreach (var type in searchInput.PropertyType)
                 {
-                    search
+                    search = search
                         .Where(x => x.ResidentalDetails != null ?
-                         x.ResidentalDetails.ResidentialTypes.ToString() == type :
-                         x.BusinessDetails.BusinessType.ToString() == type);
-
-                    tempPropertiesList.AddRange(search);
+                            x.ResidentalDetails.ResidentialTypes.ToString() == type :
+                            x.BusinessDetails.BusinessType.ToString() == type);
                 }
             }
 

@@ -11,7 +11,6 @@
     {
         [Display(Name = "Town")]
         [Required(ErrorMessage = RequiredFieldMessage)]
-        [StringLength(maximumLength: 50, ErrorMessage = LenghtErrorMessage, MinimumLength = 5)]
         public string Town { get; init; }
 
         public bool ForRent { get; init; }
@@ -23,6 +22,6 @@
 
         public IEnumerable<string> Neighborhoods { get; init; }
 
-        public int BedroomsCount { get; init; }
+        public List<string> BedroomsCount { get; init; }
     }
 }
