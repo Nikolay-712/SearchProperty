@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using SearchProperty.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using SearchProperty.Web.ViewModels;
 
     public class HomeController : BaseController
     {

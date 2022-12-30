@@ -17,6 +17,7 @@
     using SearchProperty.Services.Mapping;
     using SearchProperty.Services.Messaging;
     using SearchProperty.Services.OfferedProperties;
+    using SearchProperty.Services.Scraping;
     using SearchProperty.Services.Search;
     using SearchProperty.Web.ViewModels;
 
@@ -63,6 +64,7 @@
             services.AddTransient<IPropertyService, PropertyService>();
             services.AddTransient<IAddressService, AddressService>();
             services.AddTransient<ISearchService, SearchService>();
+            services.AddTransient<ITownScraper, TownScraper>();
         }
 
         private static void Configure(WebApplication app)
