@@ -17,7 +17,7 @@
     using SearchProperty.Services.Mapping;
     using SearchProperty.Services.Messaging;
     using SearchProperty.Services.OfferedProperties;
-    using SearchProperty.Services.Scraping;
+    using SearchProperty.Data.Seeding.Scraping;
     using SearchProperty.Services.Search;
     using SearchProperty.Web.ViewModels;
 
