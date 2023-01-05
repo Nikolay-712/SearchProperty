@@ -10,6 +10,8 @@
     {
         IQueryable<T> AllProperties<T>();
 
+        SearchInputModel GetAllTowns();
+
         IEnumerable<PropertyViewModel> PropertiesByFilters(SearchInputModel searchInput);
     }
 }

@@ -12,16 +12,21 @@
     <div class="form-group">
         <input type="submit" value="Add" class="btn btn-primary" />
     </div>
-    <div class="form-group">
-        <select asp-for="Town" class="form-control">
+    <div class="form-group col-md-4">
+        <select asp-for="Town" class="form-control selectpicker" data-live-search="true">
             <option value="">Select Town</option>
-            <option value="Sofia">Sofia</option>
-            <option value="Plovdiv">Plovdiv</option>
-            <option value="Pernik">Pernik</option>
+            @foreach (var town in Model.AllTowns)
+            {
+                <option value="">Region @town.Name</option>
+                foreach (var name in town.Towns)
+                {
+                    <option value="@name">@name</option>
+                }
+            }
         </select>
         <span asp-validation-for="Town" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-3">
         <select asp-for="ForRent" class="form-control">
             <option value="">Select</option>
             <option value="@true">For Sale</option>
@@ -110,11 +115,10 @@
                 4+ Bedrooms
             </lable>
         </div>
-
     </div>
-
-
 </form>
+
+
 
 <script>
     var dropdown = document.getElementById("dropdown");

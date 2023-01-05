@@ -1,10 +1,8 @@
 ﻿namespace SearchProperty.Web.Controllers.Search
 {
     using Microsoft.AspNetCore.Mvc;
-    using SearchProperty.Data.Models.OfferedProperties.Enums;
     using SearchProperty.Services.Search;
     using SearchProperty.Web.ViewModels.Search;
-    using System.Collections.Generic;
 
     public class SearchController : Controller
     {
@@ -17,7 +15,8 @@
 
         public IActionResult Index()
         {
-            return this.View();
+            var searchInput = this.searchService.GetAllTowns();
+            return this.View(searchInput);
         }
 
         public IActionResult Result(SearchInputModel searchInput)

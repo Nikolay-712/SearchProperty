@@ -4,11 +4,14 @@
     using System.ComponentModel.DataAnnotations;
 
     using SearchProperty.Data.Models.OfferedProperties.Enums;
+    using SearchProperty.Web.ViewModels.Addresses;
 
     using static SearchProperty.Common.GlobalConstants;
 
     public class SearchInputModel
     {
+        public IEnumerable<TownViewModel> AllTowns { get; init; }
+
         [Display(Name = "Town")]
         [Required(ErrorMessage = RequiredFieldMessage)]
         public string Town { get; init; }
